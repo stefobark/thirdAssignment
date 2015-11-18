@@ -1,6 +1,21 @@
 #include<iostream>
 #include<list>
 
+//itrTwo will be the list we're checking positions on
+//itrOne will iterate through the list we want to check
+//this will return a new list with the values of the elements from the main list that match the positions from posList
+list<int> findElements(list<int>::iterator itrOne, list<int>::iterator itrTwo){
+	list<int> resultList;
+	int count = 0;
+	while(itrTwo != NULL){
+		if(*itrTwo==count){
+			resultList.push_back(*itrOne);
+		}
+	count++;
+	}
+	return resultList;
+}
+
 int main(){
 	
 	//going to count clicks

@@ -1,7 +1,8 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef SLIST_H
+#define SLIST_H
 
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 template <typename Object>
@@ -14,14 +15,15 @@ class List
     struct Node
     {
         Object  data;
-        Node   *prev;
         Node   *next;
+        //got rid of prev to make a singly linked list.
 
-        Node( const Object & d = Object{ }, Node * p = nullptr, Node * n = nullptr )
-          : data{ d }, prev{ p }, next{ n } { }
+		  // had to remove mention of prev from these to make a singly linked list
+        Node( const Object & d = Object{ }, Node * n = nullptr )
+          : data{ d }, next{ n } { }
         
-        Node( Object && d, Node * p = nullptr, Node * n = nullptr )
-          : data{ std::move( d ) }, prev{ p }, next{ n } { }
+        Node( Object && d, Node * n = nullptr )
+          : data{ std::move( d ) }, next{ n } { }
     };
 
   public:
@@ -52,24 +54,17 @@ class List
             return old;
         }
 
-        const_iterator & operator-- ( )
-        {
-            current = current->prev;
-            return *this;
-        }
-
-        const_iterator operator-- ( int )
-        {
-            const_iterator old = *this;
-            --( *this );
-            return old;
-        }
+/*************************************
+*         No longer any operator--   *
+*************************************/
             
         bool operator== ( const const_iterator & rhs ) const
           { return current == rhs.current; }
 
         bool operator!= ( const const_iterator & rhs ) const
           { return !( *this == rhs ); }
+          
+       
 
       protected:
         Node *current;
@@ -123,25 +118,14 @@ class List
             return old;
         }
 
-        iterator & operator-- ( )
-        {
-            this->current = this->current->prev;
-            return *this;
-        }
-
-        iterator operator-- ( int )
-        {
-            iterator old = *this;
-            --( *this );
-            return old;
-        }
 
       protected:
         // Protected constructor for iterator.
         // Expects the current position.
         iterator( Node *p ) : const_iterator{ p }
           { }
-
+			//.. so trying to use iterator and the compiler is complaining that const_iterator is protected.. 
+			// i thought being a friend to the list class would stop this from happening.
         friend class List<Object>;
     };
 
@@ -151,9 +135,7 @@ class List
 
     ~List( )
     {
-        clear( );
         delete head;
-        delete tail;
     }
 
     List( const List & rhs )
@@ -169,23 +151,131 @@ class List
         std::swap( *this, copy );
         return *this;
     }
+    
+
+/**********************************************
+* 3.11 a: get the size of the list		 	    *
+**********************************************/
+    int size( ) const
+      { return theSize; }
+
+/*********************************************
+* 3.11 b: my version of 'print a list' 		*
+**********************************************/
+    
+    void printList(){
+    	Node *printThis = head->next;
+    	cout<<"our list: ";
+    	while(printThis != NULL){
+    		cout << printThis->data << " ";
+    		printThis = printThis->next;
+    	}
+    	cout << endl;
+    }
+
+/**********************************************
+* 3.11 c: my version of 'test if value' 		 *
+**********************************************/
+   
+    bool checkVal(Object x){
+		 iterator start = begin();
+		 int yesNo = 0;
+		 for(start; start != NULL; start++){
+		 	if(*start == x) yesNo = 1;
+		 }
+		 if(yesNo == 1) return 1;
+		 else return 0;
+	 }
+
+/**********************************************************************
+*3.11 d: my version of 'test if value is there and add if it is not'	 *
+**********************************************************************/
+
+	 void addValueIfNotPresent(Object x){
+	 	if(checkVal(x) == 0){
+	 		push_front(x);
+	 	}
+	 }
+	 
+/*********************************************************************
+*		3.11 e: find and remove.if present										*
+**********************************************************************/
+
+	 void removeValueIfPresent(Object x){
+	 	Node *start = head->next;
+	 	Node * prev = head;
+		while(start != NULL){
+			if(start->data == x){
+				prev->next = start->next;
+				erase(start);
+				break;
+			} else {
+				prev = prev->next;
+				start = start->next;
+			}
+		 }
+	 }
 
     
+     Object & front( )
+      { return *begin( ); }
+    
+    const Object & front( ) const
+      { return *begin( ); }
+      
+	
+	//arrrrgghhh. took me a while to get this working. but, i broke it down into manageable steps (that make sense to me)
+	//p is the first node.
+	//q is the new node we're putting at the front
+	//then, we get x that we're passing in to the function and assign it to q's data
+	//then we make q point to whatever the old beginning was
+	//and change head->next to the new node, q
+	//and increment the size.
+	void push_front( const Object & x )
+      { 
+      	Node *p = head->next;
+        	Node *q = new Node;
+        	q->data = x;
+        	q->next = p;
+        	head->next = q;
+        	++theSize;
+      }
+    
+    		
+    // Return true if the list is empty, false otherwise.
+    bool empty( ) const
+      { return size( ) == 0; }
+      		
     List( List && rhs )
-      : theSize{ rhs.theSize }, head{ rhs.head }, tail{ rhs.tail }
+      : theSize{ rhs.theSize }, head{ rhs.head }
     {
         rhs.theSize = 0;
         rhs.head = nullptr;
-        rhs.tail = nullptr;
     }
    
     List & operator= ( List && rhs )
     {    
         std::swap( theSize, rhs.theSize );
         std::swap( head, rhs.head );
-        std::swap( tail, rhs.tail );
         
         return *this;
+    }
+    
+    void erase( iterator itr )
+    {
+    	  //here's an iterator to the current node
+        Node *p = itr.current;
+        //the next node
+        Node *q( p->next );
+        if(q != NULL) {
+		     delete p;
+		     //reduce the size
+		     --theSize;
+		    } else {
+		    delete p;
+		    --theSize;
+		    }
+			
     }
     
     // Return iterator representing beginning of list.
@@ -196,123 +286,19 @@ class List
     const_iterator begin( ) const
       { return const_iterator( head->next ); }
 
-    // Return iterator representing endmarker of list.
-    // Mutator version is first, then accessor version.
-    iterator end( )
-      { return iterator( tail ); }
-
-    const_iterator end( ) const
-      { return const_iterator( tail ); }
-
-    // Return number of elements currently in the list.
-    int size( ) const
-      { return theSize; }
-
-    // Return true if the list is empty, false otherwise.
-    bool empty( ) const
-      { return size( ) == 0; }
-
-    void clear( )
-    {
-        while( !empty( ) )
-            pop_front( );
-    }
- 
- 
- 	// here's my idea for swap. give it two iterators that point into the list. create a temporary object
- 	// assign the value of a to tmp, assign the value b to a, and then assign tmp to the value of b
- 	// and it works! yay :)
-	void swap(iterator a, iterator b)
-		{
-			Object tmp = *a;
-			*a = *b;
-			*b = tmp;
-		}
     
-    // front, back, push_front, push_back, pop_front, and pop_back
-    // are the basic double-ended queue operations.
-    
-   
-    	
-    Object & front( )
-      { return *begin( ); }
-
-    const Object & front( ) const
-      { return *begin( ); }
-
-    Object & back( )
-      { return *--end( ); }
-
-    const Object & back( ) const
-      { return *--end( ); }
-
-    void push_front( const Object & x )
-      { insert( begin( ), x ); }
-
-    void push_back( const Object & x )
-      { insert( end( ), x ); }
-
-    void push_front( Object && x )
-      { insert( begin( ), std::move( x ) ); }
-
-    void push_back( Object && x )
-      { insert( end( ), std::move( x ) ); }
-
-    void pop_front( )
-      { erase( begin( ) ); }
-
-    void pop_back( )
-      { erase( --end( ) ); }
-
-    // Insert x before itr.
-    iterator insert( iterator itr, const Object & x )
-    {
-        Node *p = itr.current;
-        ++theSize;
-        return iterator( p->prev = p->prev->next = new Node{ x, p->prev, p } );
-    }
-
-    // Insert x before itr.
-    iterator insert( iterator itr, Object && x )
-    {
-        Node *p = itr.current;
-        ++theSize;
-        return iterator( p->prev = p->prev->next = new Node{ std::move( x ), p->prev, p } );
-    }
-    
-    // Erase item at itr.
-    iterator erase( iterator itr )
-    {
-        Node *p = itr.current;
-        iterator retVal( p->next );
-        p->prev->next = p->next;
-        p->next->prev = p->prev;
-        delete p;
-        --theSize;
-
-        return retVal;
-    }
-
-    iterator erase( iterator from, iterator to )
-    {
-        for( iterator itr = from; itr != to; )
-            itr = erase( itr );
-
-        return to;
-    }
 
   private:
+  	 // we keep track of the size of the list with this private data member. incrementing when inserting and decrementing when erasing
+  	 // there is no longer a tail.
     int   theSize;
     Node *head;
-    Node *tail;
 
     void init( )
     {
         theSize = 0;
         head = new Node;
-        tail = new Node;
-        head->next = tail;
-        tail->prev = head;
+        head->next = NULL;
     }
 };
 
