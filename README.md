@@ -50,4 +50,39 @@ The union: 0 1 2 3 4 5 6 7 8 9 19 99
 Our lists were: {0,1,2,3,4,5,6,7,8,9,19}
 and: {1,3,5,7,9,99}
 
-##
+##josephusGame.cpp
+My answer to the josephus problem.
+
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./josephusGame
+```
+with 5 people and 0 passes, the last person standing is person # 5
+```
+but... it doesn't work yet..
+trying different values:
+```
+with 7 people and 2 passes, the last person standing is person # 4
+```
+which isn't correct.
+will continue to work on this.
+
+##sList.h and testSList.h
+These are my answer to 3.11. Creating a simple single linked list. I modified the double linked list provided by the book.
+
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./testSList:
+```
+our list: 7 3 4 2 15 
+
+demonstrating the size method: 5
+
+we also used a method called 'addValueIfNotPresent' to try 
+to add 3 again, and we also added a 4 
+so, there should only be one 3 and a 4...
+
+looking for value 4. 
+Should return 0 if not present, 1 if it is present. 
+Let's see: 1
+
+now we're checking if a value (4) is there and removing it
+
+our list: 7 3 2 15 
+```
