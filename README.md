@@ -55,15 +55,27 @@ My answer to the josephus problem.
 
 Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./josephusGame
 ```
+the list: 12345
+potatoe holder: 1
+eliminating person 1
+
+group size: 4
+number of passes: 0
+potatoe holder: 2
+eliminating person: 2
+
+group size: 3
+number of passes: 0
+potatoe holder: 3
+eliminating person: 3
+
+group size: 2
+number of passes: 0
+potatoe holder: 4
+eliminating person: 4
+
 with 5 people and 0 passes, the last person standing is person # 5
 ```
-but... it doesn't work yet..
-trying different values:
-```
-with 7 people and 2 passes, the last person standing is person # 4
-```
-which isn't correct.
-will continue to work on this.
 
 ##sList.h and testSList.h
 These are my answer to 3.11. Creating a simple single linked list. I modified the double linked list provided by the book.
