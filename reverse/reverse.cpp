@@ -13,7 +13,7 @@ list<int> reverseIt(list<int> * listToReverse){
 }
 
 //after much fiddling, and seeing many strange numbers being output, this works! and I don't create a new list!
-//but I'm still not sure if i should be pointing in a pointer to this list...
+//but I'm still not sure if i should be passing in a pointer to this list...
 void myNonClassReverse(list<int> * reverseThisList)
    {
    	list<int>::iterator i = reverseThisList->begin();

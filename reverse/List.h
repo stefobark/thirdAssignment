@@ -276,12 +276,12 @@ class List
 		tail = head; //might as well set tail to head here, since we're not really using tail to check anything with it.
 		while(current != NULL){
 			next = current->next;
-         current->next = current->prev;
-         current->prev = next;
-         previous = current;
-         current = next;
+		        current->next = current->prev;
+         		current->prev = next;
+         		previous = current; //i see why i had to do this now, because  i use previous to set head to the end.. weird.
+         		current = next;
 		}
-      head = previous;
+      		head = previous;
     }
     	
     	
