@@ -1,0 +1,25 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+
+int main(){
+
+	string infix = "3+2*1-2/4";
+	stack<char> postfix;
+	cout << "the infix expression: ";
+	for(string::iterator itr = infix.begin(); itr!=infix.end(); ++itr){
+		cout << *itr << " ";
+	}
+	cout << endl;
+
+	for(string::iterator change = infix.begin(); change!=infix.end(); ++change){
+		if(*change == '*'|| *change == '/') *change.swap(*++;
+		else if(*change == '+' || *change == '-') postfix.push(*change);
+	}
+
+	cout << "postfix expression: ";
+	for(list<char>::iterator final = postfix.begin(); final != postfix.end(); ++final){
+		cout << *final << " ";
+	}
+}
