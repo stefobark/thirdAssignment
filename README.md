@@ -98,3 +98,35 @@ now we're checking if a value (4) is there and removing it
 
 our list: 7 3 2 15 
 ```
+
+###postfix.cpp
+My answer to 3.22 --> evaluating a postfix expression. I followed the example from the book and wrote code using the english explanation of the algorithm.
+
+Original infix expression = 6523+8*+3+*
+
+It pushes operands to a stack, but when it encounters an operator it evaluates and pushes 
+
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./postfix
+```
+found operand, pushing to top = 6
+found operand, pushing to top = 5
+found operand, pushing to top = 2
+found operand, pushing to top = 3
+found operator, adding 3 and 2 = 5 and push it to the stack
+found operand, pushing to top = 8
+found operator, multiplying 8 by 5 = i get 40 and push it to the stack
+found operator, adding 40 and 5 = 45 and push it to the stack
+found operand, pushing to top = 3
+found operator, adding 3 and 45 = 48 and push it to the stack
+found operator, multiplying 48 by 6 = i get 288 and push it to the stack
+should be 288 (followed explanation of algorithm from book): 288
+
+```
+
+###inToPost.cpp
+My answer to 3.23 --> converting an infix expression to a postfix expression.
+The original expression is: 3+2+1*1-2/4
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./inToPost
+```
+postfix expression: 3 2 + 1 1 * + 2 4 / - 
+```
