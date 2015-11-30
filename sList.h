@@ -240,8 +240,27 @@ class List
         	head->next = q;
         	++theSize;
       }
-    
-    		
+/***********************************************************
+*				 my answer to 3.29									  *
+***********************************************************/
+	//this just gets the list size and counts down from it, printing each element
+	//using printX to print that element
+	void printReverse() const{
+		for(int i = size(); i > 0; --i){
+		cout << printX(i) << " ";
+		}
+	}
+
+	//this gets a position and prints what is at that position
+    Object printX(int x) const{
+    		int count = 0; 
+    		while(count <= x){
+    			if(count == x){
+    				return x;
+    			}
+    			count++;
+    		}
+    	}
     // Return true if the list is empty, false otherwise.
     bool empty( ) const
       { return size( ) == 0; }
