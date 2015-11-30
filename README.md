@@ -78,7 +78,7 @@ with 5 people and 0 passes, the last person standing is person # 5
 ```
 
 ##sList.h and testSList.h
-These are my answer to 3.11. Creating a simple single linked list. I modified the double linked list provided by the book.
+These are my answers to 3.11. Creating a simple single linked list. I modified the double linked list provided by the book so that it was a single linked list. Removed the prev pointer from the Node struct, and the operator--, and I also got rid of tail... but I don't think that was really necessary.
 
 Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./testSList:
 ```
@@ -104,7 +104,7 @@ My answer to 3.22 --> evaluating a postfix expression. I followed the example fr
 
 Original infix expression = 6523+8*+3+*
 
-It pushes operands to a stack, but when it encounters an operator it evaluates and pushes 
+It pushes operands to a stack, but when it encounters an operator it evaluates and pushes the result back to the stack
 
 Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./postfix
 ```
