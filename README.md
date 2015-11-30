@@ -126,7 +126,39 @@ should be 288 (followed explanation of algorithm from book): 288
 ###inToPost.cpp
 My answer to 3.23 --> converting an infix expression to a postfix expression.
 The original expression is: 3+2+1*1-2/4
+
 Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./inToPost
 ```
 postfix expression: 3 2 + 1 1 * + 2 4 / - 
+```
+
+###sList.h and testReversePrint.cpp
+My answer to 3.29 --> printing a list in reverse using constant space and with const member function
+
+The member functions, in sList.h, look like this:
+```
+  //this just gets the list size and counts down from it, printing each element
+	//using printX to print that element
+	void printReverse() const{
+		for(int i = size(); i > 0; --i){
+		cout << printX(i) << " ";
+		}
+	}
+
+	//this gets a position and prints what is at that position
+  Object printX(int x) const{
+    	int count = 0; 
+    	while(count <= x){
+    		if(count == x){
+    		return x;
+    	  }
+    		count++;
+    	}
+  }
+  ```
+
+And, running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./testReversePrint
+```
+our list: 1 2 3 4 5 
+The reversed list: 5 4 3 2 1 
 ```
