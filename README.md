@@ -77,6 +77,17 @@ eliminating person: 4
 with 5 people and 0 passes, the last person standing is person # 5
 ```
 
+###Vector.h and testVector.cpp
+These are my answers to 3.9 and 3.10.
+
+Instead of iterators being simple pointers, I made an iterator class and overloaded ++, --, ==, != and did some simple checking to see if ++ or -- went beyond the boundary of the Vector. If the iterator goes too far I just print "iterated too far".
+
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./testVector
+
+```
+Printing the vector using the iterator class type (with overloaded ++): 10 9 8 7 6 iterated tooo far!
+```
+
 ##sList.h and testSList.h
 These are my answers to 3.11. Creating a simple single linked list. I modified the double linked list provided by the book so that it was a single linked list. Removed the prev pointer from the Node struct, and the operator--, and I also got rid of tail... but I don't think that was really necessary.
 
