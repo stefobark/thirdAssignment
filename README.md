@@ -160,7 +160,7 @@ The member functions, in sList.h, look like this:
 		}
 	}
 
-	//this gets a position and prints what is at that position
+	//this gets an element at some position, so we can print it above
   Object printX(int x) const{
     	int count = 0; 
     	while(count <= x){
