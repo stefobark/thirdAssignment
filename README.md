@@ -53,6 +53,10 @@ and: {1,3,5,7,9,99}
 ##josephusGame.cpp
 My answer to the josephus problem.
 
+In the following example, whoever holds the potatoe is eliminated. So, 0 passes and you're eliminated. The last person standing will be the person at the end of the line. I tried different values for the number of people and the number of passes and it seems to be working.
+
+I print out each of the steps to be sure that things are happening as I expect.
+
 Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./josephusGame
 ```
 the list: 12345
