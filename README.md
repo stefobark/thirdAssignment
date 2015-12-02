@@ -16,7 +16,7 @@ I think this is O(n) because the most important thing is the size of the master 
 ##swapDList.cpp
 My answer to 3.2
 
-Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./swapDList, looks like this:
+Running stefo@ubuntu:~/CppStuff/thirdAssignment$ ./swapDList, looks like this (swapping 5 and 1):
 ```
 our list: 0 1 2 3 4 5 6 7 8 9 
 the list after swapping: 0 5 2 3 4 1 6 7 8 9 
